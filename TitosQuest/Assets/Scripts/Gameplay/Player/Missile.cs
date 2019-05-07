@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    //public bool isFired = false;
     public GameObject player;
     public GameObject target;
     public bool isFired = false;
@@ -25,7 +24,6 @@ public class Missile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Physics.IgnoreCollision(GetComponent<Collider>(), player.GetComponent<Collider>());
 
         if (isFired)
         {

@@ -5,8 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private PlayerController player;
-    private bool sameCollision = false;
-    private bool oldCollision = false;
     private MeshRenderer enemyMeshRenderer;
     private Missile proyectile;
 
@@ -38,16 +36,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "missile")
-    //    {
-    //        oldCollision = false;
-    //        switchColorsToNormal();
-    //        Debug.Log("Is hit");
-    //    }
-    //}
-
     private void switchColors()
     {
         enemyMeshRenderer.material.color = Color.red;
@@ -55,7 +43,6 @@ public class Enemy : MonoBehaviour
 
     private void switchToNormal()
     {
-        enemyMeshRenderer.material.color = Color.white;
         proyectile.DestroyMissile();
         Destroy(gameObject);
     }
