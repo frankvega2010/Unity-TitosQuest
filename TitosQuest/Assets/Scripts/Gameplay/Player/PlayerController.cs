@@ -4,33 +4,30 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviourSingleton<PlayerController>
 {
-    public Vector3 target;
+    public Transform target;
     public GameObject tube;
+    public GameObject turretGameObject;
     public LayerMask rayCastLayer;
     public float rayDistance;
 
+    private Turret playerTurret;
     private Vector3 posPlayer;
     private Vector3 posTarget;
     private Vector3 posPlayerCannon;
     private Vector3 posTargetCannon;
     private string targetName;
-    //private float reachTargetTime;
-    //private float reachedTargetRot;
-    //private bool switchOnce = false;
-    //private bool switchOnce2 = false;
 
     public override void Awake()
     {
         base.Awake();
+        playerTurret = turretGameObject.GetComponent<Turret>();
     }
 
     // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-        //reachTargetTime = Time.deltaTime * 1.2f;
         rotateToTarget();
-        //checkReachedTarget();
 
         if (Physics.Raycast(tube.transform.position, tube.transform.forward, out hit, rayDistance, rayCastLayer))
         {
@@ -44,6 +41,7 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
                     if(hit.transform.gameObject.name == targetName)
                     {
                         Debug.DrawRay(tube.transform.position, tube.transform.forward * hit.distance, Color.yellow);
+                        playerTurret.Shoot(hit.transform.gameObject);
                         Debug.Log("Can Hit");
                     }
                     break;
@@ -55,7 +53,7 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
         }
     }
 
-    public void switchTarget(Vector3 newTarget, string name)
+    public void switchTarget(Transform newTarget, string name)
     {
         target = newTarget;
         targetName = name;
@@ -66,7 +64,7 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
         if(target != null)
         {
             posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
-            posTarget = new Vector3(target.x, 0, target.z);
+            posTarget = new Vector3(target.transform.position.x, 0, target.transform.position.z);
         }
         else
         {
@@ -77,7 +75,7 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
         if (target != null)
         {
             posPlayerCannon = new Vector3(0, tube.transform.position.y, tube.transform.position.z);
-            posTargetCannon = new Vector3(0, target.y, target.z);
+            posTargetCannon = new Vector3(0, target.transform.position.y, target.transform.position.z);
         }
         else
         {
@@ -93,31 +91,7 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
         Quaternion movingToTarget = Quaternion.identity;
         movingToTarget.SetLookRotation(posTarget - posPlayer, transform.up);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, movingToTarget, Time.deltaTime * 1.2f);
-        tube.transform.localRotation = Quaternion.Slerp(tube.transform.localRotation, movingToTargetCannon, Time.deltaTime * 1.5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, movingToTarget, Time.deltaTime * 1.0f);
+        tube.transform.localRotation = Quaternion.Slerp(tube.transform.localRotation, movingToTargetCannon, Time.deltaTime * 2.8f);
     }
-
-    //private void checkReachedTarget()
-    //{
-    //    Debug.Log(reachedTargetRot);
-
-    //    if (reachedTargetRot > 0.8f)
-    //    {
-    //        if(!switchOnce)
-    //        {
-    //            GetComponent<MeshRenderer>().material.color = Color.black;
-    //            switchOnce = true;
-    //        }
-            
-    //    }
-    //    else if (reachedTargetRot < 0.8f)
-    //    {
-    //        if (!switchOnce2)
-    //        {
-    //            GetComponent<MeshRenderer>().material.color = Color.white;
-    //            switchOnce2 = true;
-    //        }
-            
-    //    }
-    //}
 }
