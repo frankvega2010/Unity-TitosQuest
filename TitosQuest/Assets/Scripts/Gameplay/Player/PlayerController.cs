@@ -23,8 +23,14 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
         playerTurret = turretGameObject.GetComponent<Turret>();
     }
 
+    public void switchTarget(Transform newTarget, string name)
+    {
+        target = newTarget;
+        targetName = name;
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         RaycastHit hit;
         rotateToTarget();
@@ -42,7 +48,6 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
                     {
                         Debug.DrawRay(tube.transform.position, tube.transform.forward * hit.distance, Color.yellow);
                         playerTurret.Shoot(hit.transform.gameObject);
-                        Debug.Log("Can Hit");
                     }
                     break;
             }
@@ -51,12 +56,6 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
         {
             Debug.DrawRay(tube.transform.position, tube.transform.forward * rayDistance, Color.white);
         }
-    }
-
-    public void switchTarget(Transform newTarget, string name)
-    {
-        target = newTarget;
-        targetName = name;
     }
 
     private void rotateToTarget()

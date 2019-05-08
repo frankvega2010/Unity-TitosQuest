@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public GameObject proyectileAffected;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         proyectileAffected = null;
         player = PlayerController.Get();

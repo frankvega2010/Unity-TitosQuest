@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     private Image UIPanel;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         oldPanelColor = new Vector4(0, 0, 0, 0.7f);
         EnemyMgr = EnemyManager.Get();
@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         EnemiesLeft.text = "Enemies left: " + EnemyMgr.getEnemiesLeft();
         Points.text = "Points: " + GameMgr.getPoints();

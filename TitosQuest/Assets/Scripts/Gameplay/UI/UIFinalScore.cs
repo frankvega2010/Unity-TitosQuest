@@ -9,7 +9,7 @@ public class UIFinalScore : MonoBehaviour
 
     private FinalScore lastMatchFinalScore;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         lastMatchFinalScore = FinalScore.Get();
         finalScoreText.text = "Your score is : " + lastMatchFinalScore.getFinalScore();

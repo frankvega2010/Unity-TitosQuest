@@ -15,14 +15,14 @@ public class Missile : MonoBehaviour
     private Turret playerTurret;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         transform.position = dirFrom;
         playerTurret = player.GetComponent<Turret>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
         if (isFired)
@@ -40,10 +40,7 @@ public class Missile : MonoBehaviour
                 Destroy(gameObject);
             }
             
-            //dir.Normalize();
             transform.position = transform.position - dir.normalized * 20.5f * Time.deltaTime;
-            //Debug.Log(dir);
-            
             transform.rotation = q01;
 
             if (lifespan > 5)

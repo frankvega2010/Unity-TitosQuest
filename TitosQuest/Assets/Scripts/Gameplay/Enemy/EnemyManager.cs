@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviourSingleton<EnemyManager>
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         GameMgr = GameManager.Get();
 
