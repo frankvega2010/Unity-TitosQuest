@@ -6,6 +6,6 @@ We are also learning to use new tools that can make understand our code in an ea
 
 A simple defense game,nothing out of the ordinary.
 
-Download: WIP
+Download: https://github.com/frankvega2010/Unity-TitosQuest/releases/tag/v1.0
 
 ### Made by Franco Vega
