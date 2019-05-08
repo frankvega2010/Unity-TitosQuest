@@ -28,15 +28,25 @@ public class Missile : MonoBehaviour
         if (isFired)
         {
             lifespan += Time.deltaTime;
-            dir = transform.position - target.transform.position;
-            transform.position = transform.position - dir * 3.5f * Time.deltaTime;
-            //Debug.Log(dir);
-
             Quaternion q01 = Quaternion.identity;
-            q01.SetLookRotation(target.transform.position - transform.position, transform.up);
+
+            if (target)
+            {
+                dir = transform.position - target.transform.position;
+                q01.SetLookRotation(target.transform.position - transform.position, transform.up);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
+            //dir.Normalize();
+            transform.position = transform.position - dir.normalized * 20.5f * Time.deltaTime;
+            //Debug.Log(dir);
+            
             transform.rotation = q01;
 
-            if (lifespan > 10)
+            if (lifespan > 5)
             {
                 lifespan = 0;
                 isFired = false;

@@ -61,13 +61,19 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
 
     private void rotateToTarget()
     {
-        if(target != null)
+        Quaternion movingToTargetCannon = Quaternion.identity;
+
+        if (target != null)
         {
             posPlayer = new Vector3(transform.position.x, 0, transform.position.z);
             posTarget = new Vector3(target.transform.position.x, 0, target.transform.position.z);
+
+            
+            movingToTargetCannon.SetLookRotation(posTargetCannon - posPlayerCannon, target.transform.up);
         }
         else
         {
+
             posPlayer = new Vector3(0, 0, 0);
             posTarget = new Vector3(0, 0, 0);
         }
@@ -83,15 +89,10 @@ public class PlayerController : MonoBehaviourSingleton<PlayerController>
             posTargetCannon = new Vector3(0, 0, 0);
         }
 
-        
-
-        Quaternion movingToTargetCannon = Quaternion.identity;
-        movingToTargetCannon.SetLookRotation(posTargetCannon - posPlayerCannon, Vector3.up);
-
         Quaternion movingToTarget = Quaternion.identity;
         movingToTarget.SetLookRotation(posTarget - posPlayer, transform.up);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, movingToTarget, Time.deltaTime * 1.0f);
-        tube.transform.localRotation = Quaternion.Slerp(tube.transform.localRotation, movingToTargetCannon, Time.deltaTime * 2.8f);
+        transform.rotation = Quaternion.Lerp(transform.rotation.normalized, movingToTarget.normalized, Time.deltaTime * 2.0f);
+        tube.transform.localRotation = Quaternion.Lerp(tube.transform.localRotation.normalized, movingToTargetCannon.normalized, Time.deltaTime * 10.0f);
     }
 }

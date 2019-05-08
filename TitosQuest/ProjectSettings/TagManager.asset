@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - missile
+  - limit
   layers:
   - Default
   - TransparentFX

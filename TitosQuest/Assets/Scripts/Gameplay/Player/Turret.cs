@@ -8,10 +8,12 @@ public class Turret : MonoBehaviour
     public bool isFiring;
 
     private Transform startFrom;
+    private EnemyManager enemyMgr;
 
     private void Start()
     {
         startFrom = GetComponentInParent<Transform>();
+        enemyMgr = EnemyManager.Get();
     }
 
     public void Shoot(GameObject target)
@@ -28,6 +30,7 @@ public class Turret : MonoBehaviour
             missileComponentCopy.target = target.transform.gameObject;
             missileComponentCopy.dirFrom = startFrom.position;
             missileComponentCopy.isFired = true;
+            enemyMgr.proyectileNotDestroyed = missileCopy;
         }
     }
 }
